@@ -24,7 +24,6 @@ configure_file (
 add_library(POR ${POR_SRC})
 link_libraries(POR ${GLM_LIBRARIES})
 
-add_executable(wfobj.test "tests/wfobj.test.cpp")
 link_libraries(wfobj.test POR)
 
 add_test(NAME wfobj_test COMMAND wfobj.test )
