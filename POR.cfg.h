@@ -1,0 +1,7 @@
+#ifndef _POR_CFG_H_
+#define _POR_CFG_H_
+
+#define POR_VERSION_MAJOR @POR_VERSION_MAJOR@
+#define POR_VERSION_MINOR @POR_VERSION_MINOR@
+
+#endif
