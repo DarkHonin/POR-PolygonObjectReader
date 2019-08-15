@@ -7,6 +7,11 @@ set (POR_VERSION_MAJOR 1)
 set (POR_VERSION_MINOR 0)
 
 find_library(glm REQUIRED)
+if(GLM_FOUND)
+	message(STATUS "GLM HAS BEEN FOUND")
+else(GLM_FOUND)
+	message(WARNING "GLM HAS NOT BEEN FOUND")
+endif(GLM_FOUND)
 
 set (CXX_STANDARD c++17)
 
