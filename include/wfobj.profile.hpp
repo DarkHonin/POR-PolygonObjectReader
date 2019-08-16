@@ -6,7 +6,7 @@
 namespace POR{
 	class WFObjProfile : public FileProfile{
 		public:
-			int parseLine(std::string line);
+			void parseLine(std::string line, Polygon & p);
 	};
 };
 

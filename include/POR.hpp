@@ -7,20 +7,70 @@
 #include <fstream>
 #include <cstring>
 #include <glm/glm.hpp>
+#include <vector>
 
-#define ATTRIBUTE_VERTEX	0x0001
-#define ATTRIBUTE_FACE 		0x0002
 
 namespace POR{
+	#define HAS_VERT_INDEX 		0x01
+	#define HAS_TEXT_INDEX 		0x02
+	#define HAS_VERT_NORM_INDEX 0x04
+
+	enum IndexType{
+		vertex, tcoor, normal
+	};
+
+	class Face{
+		public:
+			Face();
+			Face(Face const &o);
+			~Face();
+
+			int 		getAvailableIndices() const;
+			const int	*getVertexIndices(int *len) const;
+			int 		*getTextureIndices(int *len) const;
+			int 		*getVertexNormalIndices(int *len) const;
+			void 		addIndex(int v, IndexType t);
+		private:
+			std::vector<int>		_vertex_indices;
+			std::vector<int>		_texture_coordinate_indices;
+			std::vector<int>		_vertex_normal_indices;
+	};
+
+	class Polygon{
+		public:
+			Polygon(std::string filename);
+			~Polygon();
+
+			std::string 			getFilename() const;
+			void 					addVertex(glm::vec4  vert);
+			void 					addVertex(glm::vec3  vert);
+			void 					addVertex(glm::vec2  vert);
+			void 					addVertex(glm::vec1  vert);
+			void 					addFace(Face *f);
+
+			std::vector<Face *>		getFaces() const;
+			const int				getVertexSize() const;
+			float 					*toArray(int *len) const;
+			
+
+		private:
+			int 					_vertex_size;
+			std::string 			_filename;
+			std::vector<glm::vec4> 	_vertices;
+			std::vector<Face *>		_faces;
+			
+	};
 	class FileProfile{
 		public:
-			virtual int parseLine(std::string line) = 0;
+			virtual void parseLine(std::string line, Polygon & p) = 0;
 	};
 
 	class Reader{
 		public:
 			Reader(std::string filePath);
 			~Reader();
+
+			Polygon * read();
 
 		private:
 			FileProfile			*_profile;
@@ -29,6 +79,11 @@ namespace POR{
 
 	};
 };
+
+std::ostream & operator<<(std::ostream & stream, POR::Polygon const &a);
+std::ostream & operator<<(std::ostream & stream, POR::Polygon const *a);
+std::ostream & operator<<(std::ostream & stream, POR::Face const &a);
+std::ostream & operator<<(std::ostream & stream, POR::Face const *a);
 
 
 #endif
