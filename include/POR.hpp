@@ -46,11 +46,13 @@ namespace POR{
 			void 					addVertex(glm::vec3  vert);
 			void 					addVertex(glm::vec2  vert);
 			void 					addVertex(glm::vec1  vert);
+			void					pushIndex(int x);
 			void 					addFace(Face *f);
 
 			std::vector<Face *>		getFaces() const;
 			const int				getVertexSize() const;
 			float 					*toArray(int *len) const;
+			const	int				*getVertexOrder(int *len) const;
 			
 
 		private:
@@ -58,6 +60,7 @@ namespace POR{
 			std::string 			_filename;
 			std::vector<glm::vec4> 	_vertices;
 			std::vector<Face *>		_faces;
+			std::vector<int>		_vertex_order;
 			
 	};
 	class FileProfile{

@@ -46,6 +46,12 @@ void Polygon::addVertex(glm::vec1  vert){
 	_vertices.push_back(glm::vec4(vert, 0, 0, 0));
 }
 
+void 	Polygon::pushIndex(int x){ _vertex_order.push_back(x); }
+const int *	Polygon::getVertexOrder(int *len) const{
+	*len = _vertex_order.size();
+	return _vertex_order.data();
+}
+
 Face::Face(){}
 Face::Face(Face const & o){
 	for(int x = 0; x < o._vertex_indices.size(); x++) _vertex_indices.push_back(o._vertex_indices[x]);

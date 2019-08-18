@@ -69,6 +69,15 @@ void readFace(char *str, Polygon &p){
 	p.addFace(face);
 }
 
+void readOrder(char *str, Polygon &p){
+	int hold;
+	std::stringstream ss(str);
+	while(ss.rdbuf()->in_avail()){
+		ss >> hold;
+		p.pushIndex(hold);
+	}
+}
+
 void WFObjProfile::parseLine(std::string line, Polygon & p){
 	char *str = (char *)line.c_str();
 	char raw_flag[255];
@@ -77,4 +86,5 @@ void WFObjProfile::parseLine(std::string line, Polygon & p){
 	std::string flag(raw_flag);
 	if(flag == "v")					addVec(str, p);
 	else if(flag == "f")			readFace(str+1, p);	
+	else if(flag == "l")			readOrder(str+1, p);	
 }
