@@ -1,7 +1,6 @@
 #ifndef _POR_H_
 #define _POR_H_
 
-#include "POR.cfg.h"
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -9,6 +8,9 @@
 #include <glm/glm.hpp>
 #include <vector>
 
+
+#define POR_VERSION_MAJOR 1
+#define POR_VERSION_MINOR 0
 
 namespace POR{
 	#define HAS_VERT_INDEX 		0x01
